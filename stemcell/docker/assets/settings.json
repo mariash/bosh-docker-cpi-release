@@ -1,0 +1,7 @@
+{
+	"agent_id": "agent-id",
+	"vm": {
+		"name": "vm-name",
+		"id": "vm-id"
+	}
+}

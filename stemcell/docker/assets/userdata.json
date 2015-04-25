@@ -1,0 +1,8 @@
+{
+  "server": {
+    "name": "instance-id"
+  },
+  "registry": {
+    "endpoint": "/var/vcap/bosh/settings_source.json"
+  }
+}

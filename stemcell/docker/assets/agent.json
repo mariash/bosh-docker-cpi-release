@@ -1,0 +1,25 @@
+{
+  "Platform": {
+    "Linux": {
+      "UseDefaultTmpDir": true,
+      "UsePreformattedPersistentDisk": true,
+      "BindMountPersistentDisk": false,
+      "CreatePartitionIfNoEphemeralDisk": true,
+      "DevicePathResolutionType": "virtio"
+    }
+  },
+  "Infrastructure": {
+    "Settings": {
+      "Sources": [
+        {
+          "Type": "File",
+          "MetaDataPath" : "/var/vcap/bosh/metadata.json",
+          "UserDataPath" : "/var/vcap/bosh/userdata.json"
+        }
+      ],
+
+      "UseServerName": true,
+      "UseRegistry": true
+    }
+  }
+}
