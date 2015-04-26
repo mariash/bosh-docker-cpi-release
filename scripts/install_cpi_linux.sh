@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+export GOARCH=amd64
+export GOOS=linux
+export GOTOOLDIR=$(go env GOROOT)/pkg/linux_amd64
+
+$(dirname $0)/install_cpi.sh

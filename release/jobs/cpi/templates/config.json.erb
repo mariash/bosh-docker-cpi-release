@@ -1,0 +1,8 @@
+{
+	"SocketPath": "<%= p('socket_path') %>",
+	"Mbus": "<%= p('mbus') %>",
+	"Blobstore": {
+		"Type": "<%= p('blobstore.provider') %>",
+		"Options": <%= JSON.dump(p('blobstore.options')) %>
+	}
+}

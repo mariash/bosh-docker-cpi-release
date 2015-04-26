@@ -3,5 +3,12 @@
 	"vm": {
 		"name": "vm-name",
 		"id": "vm-id"
-	}
+	},
+	"mbus": "https://user:password@0.0.0.0:6868/agent",
+	"blobstore": {
+    	"provider": "local",
+    	"options": {
+      		"blobstore_path": "/var/vcap/data/blobstore"
+    	}
+  	}
 }

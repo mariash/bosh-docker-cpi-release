@@ -1,0 +1,26 @@
+---
+name: cpi
+
+templates:
+  cpi: bin/cpi
+  config.json.erb: config.json
+
+packages:
+- cpi
+
+properties:
+  socket_path:
+    description: Path to docker socket
+    default: "unix:///var/run/docker.sock"
+
+  mbus:
+    description: Message Bus URL
+
+  blobstore.provider:
+    description: Type of blobstore
+    default: "local"
+
+  blobstore.options:
+    description: Map of blobstore options
+    default: {blobstore_path: "/var/vcap/data/blobstore"}
+
