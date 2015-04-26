@@ -15,15 +15,15 @@ func NewCreateStemcell(client *docker.Client) createStemcell {
 }
 
 func (a createStemcell) Run(stemcellPath string, _ interface{}) (string, error) {
-	// imageOptions := docker.ImportImageOptions{
-	// 	Repository: "bosh:stemcell",
-	// 	Source:     stemcellPath,
-	// }
+	imageOptions := docker.ImportImageOptions{
+		Repository: "bosh:stemcell",
+		Source:     stemcellPath,
+	}
 
-	// err := a.client.ImportImage(imageOptions)
-	// if err != nil {
-	// 	return "", err
-	// }
+	err := a.client.ImportImage(imageOptions)
+	if err != nil {
+		return "", err
+	}
 
 	return "bosh:stemcell", nil
 }

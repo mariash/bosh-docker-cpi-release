@@ -1,38 +1,38 @@
 ---
-name: bosh
+name: dummy
 
 releases:
-- name: bosh-docker-cpi-release
-  url: file:///opt/bosh/release/dev_releases/bosh-docker-cpi-release/bosh-docker-cpi-release-0+dev.1.tgz
+- name: bosh-docker-cpi
+  url: file:///opt/bosh/release/dev_releases/bosh-docker-cpi/bosh-docker-cpi-0+dev.1.tgz
 - name: dummy
   url: file:///opt/bosh/downloads/dummy-0+dev.1.tgz
 
 resource_pools:
-- name: fake-resource-pool-name
-  network: fake-network-name
+- name: default
+  network: default
   stemcell:
     url: file:///opt/bosh/downloads/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
     # from https://s3.amazonaws.com/bosh-warden-stemcells/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
 
 networks:
-- name: fake-network-name
+- name: default
   type: dynamic
 
 cloud_provider:
   template:
     name: cpi
-    release: bosh-docker-cpi-release
+    release: bosh-docker-cpi
   mbus: https://nats:nats@0.0.0.0:6868
   properties:
     mbus: https://nats:nats@0.0.0.0:6868
 
 jobs:
-- name: dummy_job
+- name: dummy
   instances: 1
   templates:
   - {name: dummy, release: dummy}
-  - {name: cpi, release: bosh-docker-cpi-release}
-  resource_pool: fake-resource-pool-name
+  - {name: cpi, release: bosh-docker-cpi}
+  resource_pool: default
   networks:
-  - name: fake-network-name
+  - name: default
   properties: {}

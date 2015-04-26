@@ -35,7 +35,7 @@ func (a createVM) Run(agentID string, stemcellCID string, _ interface{}, network
 		return "", nil
 	}
 
-	err = settingsUpdater.Update(agentID, bwcvm.Environment(env))
+	err = settingsUpdater.Update(agentID, networks.AsVMNetworks(), bwcvm.Environment(env))
 	if err != nil {
 		return "", nil
 	}

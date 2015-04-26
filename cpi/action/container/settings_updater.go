@@ -54,13 +54,13 @@ func (s *settingsUpdater) Setup() error {
 	return s.updateFile(userDataFilePathInContainer, contents)
 }
 
-func (s *settingsUpdater) Update(agentID string, env bwcvm.Environment) error {
+func (s *settingsUpdater) Update(agentID string, networks bwcvm.Networks, env bwcvm.Environment) error {
 	agentOptions := bwcvm.AgentOptions{
 		Mbus:      s.config.Mbus,
 		Blobstore: s.config.Blobstore,
 	}
 
-	agentEnv := bwcvm.NewAgentEnvForVM(agentID, s.containerID, bwcvm.Networks{}, env, agentOptions)
+	agentEnv := bwcvm.NewAgentEnvForVM(agentID, s.containerID, networks, env, agentOptions)
 
 	contents, err := json.Marshal(agentEnv)
 	if err != nil {
