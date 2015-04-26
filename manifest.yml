@@ -3,7 +3,7 @@ name: bosh
 
 releases:
 - name: bosh-docker-cpi-release
-  url: file:///opt/bosh/release/dev_releases/bosh-docker-cpi-release/bosh-docker-cpi-release-0+dev.19.tgz
+  url: file:///opt/bosh/release/dev_releases/bosh-docker-cpi-release/bosh-docker-cpi-release-0+dev.1.tgz
 - name: dummy
   url: file:///opt/bosh/downloads/dummy-0+dev.1.tgz
 
@@ -22,7 +22,7 @@ cloud_provider:
   template:
     name: cpi
     release: bosh-docker-cpi-release
-  mbus: https://admin:admin@10.244.0.42:6868
+  mbus: https://nats:nats@0.0.0.0:6868
   properties:
     mbus: https://nats:nats@0.0.0.0:6868
 

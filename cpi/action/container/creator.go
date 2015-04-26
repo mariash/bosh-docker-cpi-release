@@ -18,6 +18,9 @@ func (c *Creator) Create(imageName string) (string, error) {
 	hostConfig := &docker.HostConfig{
 		Privileged:      true,
 		PublishAllPorts: true,
+		PortBindings: map[docker.Port][]docker.PortBinding{
+			docker.Port("6868"): {{HostIP: "0.0.0.0", HostPort: "6868"}},
+		},
 	}
 	containerOptions := docker.CreateContainerOptions{
 		Config: &docker.Config{

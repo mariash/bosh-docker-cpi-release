@@ -1,2 +1,3 @@
 downloads/*
 .vagrant
+test.go
