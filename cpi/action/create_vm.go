@@ -1,6 +1,8 @@
 package action
 
 import (
+	"errors"
+
 	bwcaction "github.com/cppforlife/bosh-warden-cpi/action"
 	bwcvm "github.com/cppforlife/bosh-warden-cpi/vm"
 
@@ -26,6 +28,10 @@ func (a createVM) Run(agentID string, stemcellCID string, _ interface{}, network
 	containerID, err := a.containerCreator.Create(stemcellCID)
 	if err != nil {
 		return "", nil
+	}
+	if containerID == "" {
+		// todo: get stderr from container
+		return "", errors.New("failed to create container for some reason, probably ports collision")
 	}
 
 	settingsUpdater := a.settingsUpdaterFactory.Create(containerID)
