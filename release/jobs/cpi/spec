@@ -23,5 +23,5 @@ properties:
 
   blobstore.options:
     description: Map of blobstore options
-    default: {blobstore_path: "/var/vcap/data/blobstore"}
+    default: {blobstore_path: "/var/vcap/micro_bosh/data/cache"}
 
