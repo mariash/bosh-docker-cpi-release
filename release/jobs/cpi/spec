@@ -15,6 +15,7 @@ properties:
 
   mbus:
     description: Message Bus URL
+    default: ""
 
   blobstore.provider:
     description: Type of blobstore

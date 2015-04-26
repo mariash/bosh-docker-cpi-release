@@ -17,7 +17,7 @@ type factory struct {
 }
 
 func NewFactory(client *docker.Client, config cfg.Config, fs boshsys.FileSystem) bwcaction.Factory {
-	containerCreator := container.NewCreator(client)
+	containerCreator := container.NewCreator(client, config)
 	settingsUpdaterFactory := container.NewSettingsUpdaterFactory(client, config)
 
 	return &factory{

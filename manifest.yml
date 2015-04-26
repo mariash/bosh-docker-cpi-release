@@ -35,3 +35,4 @@ jobs:
   resource_pool: fake-resource-pool-name
   networks:
   - name: fake-network-name
+  properties: {}
