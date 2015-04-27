@@ -15,7 +15,7 @@ resource_pools:
     url: file:///vagrant/downloads/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
     # from https://s3.amazonaws.com/bosh-warden-stemcells/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
   cloud_properties:
-    ports: [6868, 25555, 4222]
+    ports: [6868, 25555, 4222, 25250]
     binds: ["/var/run:/var/docker:rw"]
 
 networks:
@@ -49,7 +49,13 @@ jobs:
   properties:
     cpi:
       socket_path: "unix:///var/docker/docker.sock"
-      mbus: "nats://nats:nats@0.0.0.0:4222"
+      mbus: "nats://nats:nats@172.17.42.1:4222"
+      blobstore:
+        provider: "dav"
+        options: 
+            endpoint: http://172.17.42.1:25250
+            user: agent
+            password: agent
     nats:
       user: "nats"
       password: "nats"
@@ -66,7 +72,8 @@ jobs:
       database: "bosh"
       port: 5432
     blobstore:
-      address: "127.0.0.1"
+      address: "0.0.0.0"
+      port: 25250
       director:
         user: "director"
         password: "director"

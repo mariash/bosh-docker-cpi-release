@@ -1,0 +1,42 @@
+---
+name: dummy
+director_uuid: db03db62-fa38-4cbf-8afa-45969429025f
+
+releases:
+- name: dummy
+  version: latest
+
+networks:
+- name: default
+  type: dynamic
+  cloud_properties: {}
+
+resource_pools:
+- name: default
+  stemcell:
+    name: bosh-warden-boshlite-ubuntu-trusty-go_agent
+    version: latest
+  network: default
+  cloud_properties: {}
+
+compilation:
+  reuse_compilation_vms: true
+  workers: 1
+  network: default
+  cloud_properties: {}
+
+update:
+  canaries: 1
+  canary_watch_time: 1000 - 90000
+  update_watch_time: 1000 - 90000
+  max_in_flight: 1
+  max_errors: 1
+
+jobs:
+- name: dummy
+  templates:
+  - name: dummy_with_properties
+  instances: 1
+  resource_pool: default
+  networks:
+  - name: default
