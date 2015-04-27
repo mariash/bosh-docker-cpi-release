@@ -95,7 +95,7 @@ jobs:
         user: "admin"
         password: "admin"
     dns:
-      address: 54.84.87.163
+      address: "0.0.0.0"
       domain_name: "microbosh"
       db:
         user: "postgres"
