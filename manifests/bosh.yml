@@ -15,7 +15,8 @@ resource_pools:
     url: file:///opt/bosh/downloads/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
     # from https://s3.amazonaws.com/bosh-warden-stemcells/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
   cloud_properties:
-    ports: [6868, 25555]
+    ports: [6868, 25555, 4222]
+    binds: ["/var/run:/var/docker:ro"]
 
 networks:
 - name: default
@@ -47,12 +48,13 @@ jobs:
   instances: 1
   properties:
     cpi:
-      mbus: https://nats:nats@0.0.0.0:6868
+      socket_path: "unix:///var/docker/docker.sock"
+      mbus: "nats://nats:nats@0.0.0.0:4222"
     nats:
       user: "nats"
       password: "nats"
       auth_timeout: 3
-      address: "127.0.0.1"
+      address: "0.0.0.0"
     redis:
       address: "127.0.0.1"
       password: "redis"

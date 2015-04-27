@@ -26,6 +26,7 @@ func NewCreator(client *docker.Client, config cfg.Config, logger boshlog.Logger)
 
 type Properties struct {
 	Ports []int
+	Binds []string
 }
 
 func (c *Creator) Create(imageName string, properties Properties) (string, error) {
@@ -46,6 +47,7 @@ func (c *Creator) Create(imageName string, properties Properties) (string, error
 		Privileged:      true,
 		PublishAllPorts: true,
 		PortBindings:    portBindings,
+		Binds:           properties.Binds,
 	}
 	containerOptions := docker.CreateContainerOptions{
 		Config: &docker.Config{
