@@ -1,11 +1,11 @@
 package container
 
 import (
-	"net"
-	"net/url"
-	"strings"
+	"strconv"
 
 	"github.com/fsouza/go-dockerclient"
+
+	boshlog "github.com/cloudfoundry/bosh-agent/logger"
 
 	cfg "../../config"
 )
@@ -13,34 +13,33 @@ import (
 type Creator struct {
 	config cfg.Config
 	client *docker.Client
+	logger boshlog.Logger
 }
 
-func NewCreator(client *docker.Client, config cfg.Config) *Creator {
+func NewCreator(client *docker.Client, config cfg.Config, logger boshlog.Logger) *Creator {
 	return &Creator{
 		client: client,
 		config: config,
+		logger: logger,
 	}
 }
 
-func (c *Creator) Create(imageName string) (string, error) {
+type Properties struct {
+	Ports []int
+}
+
+func (c *Creator) Create(imageName string, properties Properties) (string, error) {
 	portBindings := map[docker.Port][]docker.PortBinding{}
 	exposedPorts := map[docker.Port]struct{}{}
 
-	if strings.HasPrefix(c.config.Mbus, "http") {
-		mbusURL, err := url.Parse(c.config.Mbus)
-		if err != nil {
-			return "", err
-		}
+	for _, port := range properties.Ports {
+		portStr := strconv.Itoa(port)
+		c.logger.Debug("creator", "Configuring port %s", portStr)
 
-		_, port, err := net.SplitHostPort(mbusURL.Host)
-		if err != nil {
-			return "", err
+		portBindings[docker.Port(portStr)] = []docker.PortBinding{
+			{HostIP: "0.0.0.0", HostPort: portStr},
 		}
-
-		portBindings[docker.Port(port)] = []docker.PortBinding{
-			{HostIP: "0.0.0.0", HostPort: port},
-		}
-		exposedPorts[docker.Port(port)] = struct{}{}
+		exposedPorts[docker.Port(portStr)] = struct{}{}
 	}
 
 	hostConfig := &docker.HostConfig{

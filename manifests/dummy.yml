@@ -13,6 +13,8 @@ resource_pools:
   stemcell:
     url: file:///opt/bosh/downloads/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
     # from https://s3.amazonaws.com/bosh-warden-stemcells/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
+  cloud_properties:
+    ports: [6869]
 
 networks:
 - name: default
@@ -22,10 +24,10 @@ cloud_provider:
   template:
     name: cpi
     release: bosh-docker-cpi
-  mbus: https://nats:nats@0.0.0.0:6868
+  mbus: https://nats:nats@0.0.0.0:6869
   properties:
     cpi:
-      mbus: https://nats:nats@0.0.0.0:6868
+      mbus: https://nats:nats@0.0.0.0:6869
 
 jobs:
 - name: dummy

@@ -29,7 +29,7 @@ func main() {
 	}
 
 	client, _ := docker.NewClient(config.SocketPath)
-	actionFactory := action.NewFactory(client, config, fs)
+	actionFactory := action.NewFactory(client, config, fs, logger)
 	caller := bwcdisp.NewJSONCaller()
 
 	dispatcher := bwcdisp.NewJSON(actionFactory, caller, logger)

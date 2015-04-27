@@ -24,8 +24,8 @@ func NewCreateVM(
 	}
 }
 
-func (a createVM) Run(agentID string, stemcellCID string, _ interface{}, networks bwcaction.Networks, _ []bwcaction.DiskCID, env bwcaction.Environment) (string, error) {
-	containerID, err := a.containerCreator.Create(stemcellCID)
+func (a createVM) Run(agentID string, stemcellCID string, cloudProperties container.Properties, networks bwcaction.Networks, _ []bwcaction.DiskCID, env bwcaction.Environment) (string, error) {
+	containerID, err := a.containerCreator.Create(stemcellCID, cloudProperties)
 	if err != nil {
 		return "", nil
 	}

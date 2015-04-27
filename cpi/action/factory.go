@@ -4,6 +4,7 @@ import (
 	"github.com/fsouza/go-dockerclient"
 
 	bosherr "github.com/cloudfoundry/bosh-agent/errors"
+	boshlog "github.com/cloudfoundry/bosh-agent/logger"
 	boshsys "github.com/cloudfoundry/bosh-agent/system"
 	bwcaction "github.com/cppforlife/bosh-warden-cpi/action"
 
@@ -13,11 +14,10 @@ import (
 
 type factory struct {
 	actions map[string]bwcaction.Action
-	fs      boshsys.FileSystem
 }
 
-func NewFactory(client *docker.Client, config cfg.Config, fs boshsys.FileSystem) bwcaction.Factory {
-	containerCreator := container.NewCreator(client, config)
+func NewFactory(client *docker.Client, config cfg.Config, fs boshsys.FileSystem, logger boshlog.Logger) bwcaction.Factory {
+	containerCreator := container.NewCreator(client, config, logger)
 	containerFinder := container.NewFinder(client)
 	settingsUpdaterFactory := container.NewSettingsUpdaterFactory(client, config)
 
