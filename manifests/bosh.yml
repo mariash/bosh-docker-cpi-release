@@ -1,0 +1,106 @@
+---
+name: bosh
+
+releases:
+- name: bosh-docker-cpi
+  url: file:///opt/bosh/release/dev_releases/bosh-docker-cpi/bosh-docker-cpi-0+dev.1.tgz
+- name: bosh
+  url: file:///opt/bosh/downloads/bosh-158.tgz
+  # from http://bosh.io/d/github.com/cloudfoundry/bosh?v=158
+
+resource_pools:
+- name: default
+  network: default
+  stemcell:
+    url: file:///opt/bosh/downloads/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
+    # from https://s3.amazonaws.com/bosh-warden-stemcells/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
+  cloud_properties:
+    ports: [6868, 25555]
+
+networks:
+- name: default
+  type: dynamic
+
+cloud_provider:
+  template:
+    name: cpi
+    release: bosh-docker-cpi
+  mbus: https://nats:nats@0.0.0.0:6868
+  properties:
+    cpi:
+      mbus: https://nats:nats@0.0.0.0:6868
+
+jobs:
+- name: bosh
+  templates:
+  - { name: nats, release: bosh }
+  - { name: redis, release: bosh }
+  - { name: postgres, release: bosh }
+  - { name: powerdns, release: bosh }
+  - { name: blobstore, release: bosh }
+  - { name: director, release: bosh }
+  - { name: health_monitor, release: bosh }
+  - { name: cpi, release: bosh-docker-cpi }
+  networks:
+  - name: default
+  resource_pool: default
+  instances: 1
+  properties:
+    cpi:
+      mbus: https://nats:nats@0.0.0.0:6868
+    nats:
+      user: "nats"
+      password: "nats"
+      auth_timeout: 3
+      address: "127.0.0.1"
+    redis:
+      address: "127.0.0.1"
+      password: "redis"
+      port: 25255
+    postgres:
+      user: "postgres"
+      password: "postges"
+      host: "127.0.0.1"
+      database: "bosh"
+      port: 5432
+    blobstore:
+      address: "127.0.0.1"
+      director:
+        user: "director"
+        password: "director"
+      agent:
+        user: "agent"
+        password: "agent"
+      provider: "dav"
+    director:
+      cpi_job: cpi
+      address: "127.0.0.1"
+      name: "micro"
+      port: 25555
+      db:
+        user: "postgres"
+        password: "postges"
+        host: "127.0.0.1"
+        database: "bosh"
+        port: 5432
+        adapter: "postgres"
+      backend_port: 25556
+    hm:
+      http:
+        user: "hm"
+        password: "hm"
+      director_account:
+        user: "admin"
+        password: "admin"
+    dns:
+      address: 54.84.87.163
+      domain_name: "microbosh"
+      db:
+        user: "postgres"
+        password: "postges"
+        host: "127.0.0.1"
+        database: "bosh"
+        port: 5432
+        adapter: "postgres"
+    ntp: []
+
