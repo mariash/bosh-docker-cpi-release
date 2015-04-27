@@ -30,9 +30,10 @@ jobs:
 - name: dummy
   instances: 1
   templates:
-  - {name: dummy, release: dummy}
+  - {name: dummy_with_properties, release: dummy}
   - {name: cpi, release: bosh-docker-cpi}
   resource_pool: default
   networks:
   - name: default
-  properties: {}
+  properties:
+    echo_value: hello

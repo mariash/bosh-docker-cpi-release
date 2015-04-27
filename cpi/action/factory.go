@@ -18,12 +18,15 @@ type factory struct {
 
 func NewFactory(client *docker.Client, config cfg.Config, fs boshsys.FileSystem) bwcaction.Factory {
 	containerCreator := container.NewCreator(client, config)
+	containerFinder := container.NewFinder(client)
 	settingsUpdaterFactory := container.NewSettingsUpdaterFactory(client, config)
 
 	return &factory{
 		actions: map[string]bwcaction.Action{
 			"create_stemcell": NewCreateStemcell(client),
 			"create_vm":       NewCreateVM(containerCreator, settingsUpdaterFactory),
+			"has_vm":          NewHasVM(containerFinder),
+			"delete_vm":       NewDeleteVM(client),
 		},
 	}
 }
