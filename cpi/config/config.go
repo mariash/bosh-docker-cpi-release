@@ -8,8 +8,8 @@ import (
 )
 
 type Config struct {
-	Mbus       string
 	SocketPath string
+	Mbus       string
 	Blobstore  bwcvm.BlobstoreOptions
 }
 

@@ -9,19 +9,19 @@ packages:
 - cpi
 
 properties:
-  socket_path:
+  cpi.socket_path:
     description: Path to docker socket
     default: "unix:///var/run/docker.sock"
 
-  mbus:
+  cpi.mbus:
     description: Message Bus URL
     default: ""
 
-  blobstore.provider:
+  cpi.blobstore.provider:
     description: Type of blobstore
     default: "local"
 
-  blobstore.options:
+  cpi.blobstore.options:
     description: Map of blobstore options
     default: {blobstore_path: "/var/vcap/micro_bosh/data/cache"}
 

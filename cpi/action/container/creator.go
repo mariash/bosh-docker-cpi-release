@@ -67,5 +67,24 @@ func (c *Creator) Create(imageName string) (string, error) {
 		return "", nil
 	}
 
+	// clean up compilation logs (which cause permission errors for vcap)
+	// fixed later in bosh, no stemcell though yet
+	err = c.cleanupDataDir(container.ID)
+	if err != nil {
+		return "", nil
+	}
+
 	return container.ID, nil
+}
+
+func (c *Creator) cleanupDataDir(containerID string) error {
+	exec, err := c.client.CreateExec(docker.CreateExecOptions{
+		Container: containerID,
+		Cmd:       []string{"sh", "-c", "rm -rf /var/vcap/data/sys && mkdir -p /var/vcap/data/sys"},
+	})
+	if err != nil {
+		return err
+	}
+
+	return c.client.StartExec(exec.ID, docker.StartExecOptions{})
 }

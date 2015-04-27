@@ -24,7 +24,8 @@ cloud_provider:
     release: bosh-docker-cpi
   mbus: https://nats:nats@0.0.0.0:6868
   properties:
-    mbus: https://nats:nats@0.0.0.0:6868
+    cpi:
+      mbus: https://nats:nats@0.0.0.0:6868
 
 jobs:
 - name: dummy

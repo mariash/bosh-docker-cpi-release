@@ -1,8 +1,8 @@
 {
-	"SocketPath": "<%= p('socket_path') %>",
-	"Mbus": "<%= p('mbus') %>",
+	"SocketPath": "<%= p('cpi.socket_path') %>",
+	"Mbus": "<%= p('cpi.mbus') %>",
 	"Blobstore": {
-		"Type": "<%= p('blobstore.provider') %>",
-		"Options": <%= JSON.dump(p('blobstore.options')) %>
+		"Type": "<%= p('cpi.blobstore.provider') %>",
+		"Options": <%= JSON.dump(p('cpi.blobstore.options')) %>
 	}
 }
