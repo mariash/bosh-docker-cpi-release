@@ -16,7 +16,7 @@ resource_pools:
     # from https://s3.amazonaws.com/bosh-warden-stemcells/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
   cloud_properties:
     ports: [6868, 25555, 4222]
-    binds: ["/var/run:/var/docker:ro"]
+    binds: ["/var/run:/var/docker:rw"]
 
 networks:
 - name: default

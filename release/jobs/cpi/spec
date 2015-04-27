@@ -3,6 +3,7 @@ name: cpi
 
 templates:
   cpi: bin/cpi
+  ctl: bin/ctl
   config.json.erb: config.json
 
 packages:
