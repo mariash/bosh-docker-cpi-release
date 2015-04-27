@@ -3,16 +3,16 @@ name: bosh
 
 releases:
 - name: bosh-docker-cpi
-  url: file:///opt/bosh/release/dev_releases/bosh-docker-cpi/bosh-docker-cpi-0+dev.1.tgz
+  url: file:///vagrant/release/dev_releases/bosh-docker-cpi/bosh-docker-cpi-0+dev.1.tgz
 - name: bosh
-  url: file:///opt/bosh/downloads/bosh-158.tgz
+  url: file:///vagrant/downloads/bosh-158.tgz
   # from http://bosh.io/d/github.com/cloudfoundry/bosh?v=158
 
 resource_pools:
 - name: default
   network: default
   stemcell:
-    url: file:///opt/bosh/downloads/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
+    url: file:///vagrant/downloads/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
     # from https://s3.amazonaws.com/bosh-warden-stemcells/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
   cloud_properties:
     ports: [6868, 25555, 4222]

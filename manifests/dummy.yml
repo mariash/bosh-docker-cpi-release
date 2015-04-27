@@ -3,15 +3,15 @@ name: dummy
 
 releases:
 - name: bosh-docker-cpi
-  url: file:///opt/bosh/release/dev_releases/bosh-docker-cpi/bosh-docker-cpi-0+dev.1.tgz
+  url: file:///vagrant/release/dev_releases/bosh-docker-cpi/bosh-docker-cpi-0+dev.1.tgz
 - name: dummy
-  url: file:///opt/bosh/downloads/dummy-0+dev.1.tgz
+  url: file:///vagrant/downloads/dummy-0+dev.1.tgz
 
 resource_pools:
 - name: default
   network: default
   stemcell:
-    url: file:///opt/bosh/downloads/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
+    url: file:///vagrant/downloads/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
     # from https://s3.amazonaws.com/bosh-warden-stemcells/bosh-stemcell-2776-warden-boshlite-ubuntu-trusty-go_agent.tgz
   cloud_properties:
     ports: [6869]
