@@ -14,9 +14,10 @@ func NewCreateStemcell(client *docker.Client) createStemcell {
 	}
 }
 
-func (a createStemcell) Run(stemcellPath string, _ interface{}) (string, error) {
+func (a createStemcell) Run(stemcellPath string, cloudProperties map[string]interface{}) (string, error) {
+	name := parseStemcellName(cloudProperties)
 	imageOptions := docker.ImportImageOptions{
-		Repository: "bosh:stemcell",
+		Repository: name,
 		Source:     stemcellPath,
 	}
 
@@ -25,5 +26,25 @@ func (a createStemcell) Run(stemcellPath string, _ interface{}) (string, error) 
 		return "", err
 	}
 
-	return "bosh:stemcell", nil
+	return name, nil
+}
+
+func parseStemcellName(cloudProperties map[string]interface{}) string {
+	name := "bosh-stemcell"
+
+	if foundName, ok := cloudProperties["name"]; ok {
+		if nameStr, ok := foundName.(string); ok {
+			name = nameStr
+		}
+	}
+
+	version := "latest"
+
+	if foundVersion, ok := cloudProperties["version"]; ok {
+		if versionStr, ok := foundVersion.(string); ok {
+			version = versionStr
+		}
+	}
+
+	return name + ":" + version
 }
