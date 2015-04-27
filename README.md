@@ -2,11 +2,13 @@
 
 ## Deploying with bosh-init
 
-### Dependencies
-
-### Manifest
+See manifests folder for example manifests for dummy and bosh release.
 
 ### Deploy
+
+```
+bosh-init deploy manifest.yml
+```
 
 ## TODO
 
