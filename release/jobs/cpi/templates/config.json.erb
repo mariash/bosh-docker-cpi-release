@@ -4,5 +4,10 @@
 	"Blobstore": {
 		"Type": "<%= p('cpi.blobstore.provider') %>",
 		"Options": <%= JSON.dump(p('cpi.blobstore.options')) %>
-	}
+	},
+  "DisksDir": "<%= p('cpi.disks_dir') %>",
+  "HostEphemeralBindMountsDir": "<%= p('cpi.host_ephemeral_bind_mounts_dir') %>",
+  "HostPersistentBindMountsDir": "<%= p('cpi.host_persistent_bind_mounts_dir') %>",
+  "GuestEphemeralBindMountDir": "<%= p('cpi.guest_ephemeral_bind_mount_dir') %>",
+  "GuestPersistentBindMountsDir": "<%= p('cpi.guest_persistent_bind_mounts_dir') %>"
 }

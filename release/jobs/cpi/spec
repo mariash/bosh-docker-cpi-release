@@ -11,7 +11,7 @@ packages:
 
 properties:
   cpi.socket_path:
-    description: Path to docker socket
+    description: "Path to docker socket"
     default: "unix:///var/run/docker.sock"
 
   cpi.mbus:
@@ -19,10 +19,29 @@ properties:
     default: ""
 
   cpi.blobstore.provider:
-    description: Type of blobstore
+    description: "Type of blobstore"
     default: "local"
 
   cpi.blobstore.options:
-    description: Map of blobstore options
+    description: "Map of blobstore options"
     default: {blobstore_path: "/var/vcap/micro_bosh/data/cache"}
 
+  cpi.disks_dir:
+    description: "Directory where disks are stored"
+    default: "/var/vcap/store/cpi/disks"
+
+  cpi.host_ephemeral_bind_mounts_dir:
+    description: "Directory with sub-directories at which ephemeral disks are mounted on the host"
+    default: "/var/vcap/store/cpi/ephemeral_bind_mounts_dir"
+
+  cpi.host_persistent_bind_mounts_dir:
+    description: "Directory with sub-directories at which persistent disks are mounted on the host"
+    default: "/var/vcap/store/cpi/persistent_bind_mounts_dir"
+
+  cpi.guest_ephemeral_bind_mount_path:
+    description: "Path at which ephemeral disk is mounted inside VMs"
+    default: "/var/vcap/data"
+
+  cpi.guest_persistent_bind_mounts_dir:
+    description: "Directory with sub-directories at which persistent disks are mounted inside VMs"
+    default: "/docker-cpi-dev"
